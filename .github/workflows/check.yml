@@ -41,9 +41,9 @@ jobs:
         working-directory: playbooks
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            npm run validate -- --root ../content --base "origin/${{ github.base_ref }}"
+            npm run validate -- --root ../content --base "origin/${{ github.base_ref }}" --no-drafts
           else
-            npm run validate -- --root ../content --base HEAD~1
+            npm run validate -- --root ../content --base HEAD~1 --no-drafts
           fi
 
       - name: Check links
