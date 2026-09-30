@@ -13,9 +13,10 @@ tags:
 syndicate: []
 wordCount: 434
 readingTimeMinutes: 2
+updated: 2026-09-30
 ---
 
-Came across this post by [Tressie McMillan Cottom](https://bsky.app/profile/tressiemcphd.bsky.social) (and related posts on the topic, [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwll5j6xq22v) and [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwnsiyaybs2k)) who highlights that one of the problems with AI (and well AI Agents in particular) is that people don't think of their lives as a set of tasks.
+Came across this post by [Tressie McMillan Cottom](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwlkrg7l6c2v) (and related posts on the topic, [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwll5j6xq22v) and [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwnsiyaybs2k)) who highlights that one of the problems with AI (and well AI Agents in particular) is that people don't think of their lives as a set of tasks.
 
 [![Tressie McMillan Cottom on Bluesky, post 5 of 6: getting people to see their lives as a set of tasks](image-1.png)](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwlkrg7l6c2v)
 
