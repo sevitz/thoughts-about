@@ -1,0 +1,121 @@
+# Rebuilds sevitz.com when a post is merged to main, then waits for the new post to go live.
+# Needs only the CF_PAGES_DEPLOY_HOOK_URL secret. No private repo access, no artifacts, no writes.
+name: Publish
+
+on:
+  push:
+    branches: [main]
+    paths: ["posts/**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Two commits so HEAD~1 exists.
+          fetch-depth: 2
+
+      - name: Find newly published posts
+        id: find
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # PRs are squash merged, so every commit on main has a single parent and
+          # HEAD~1 is the previous state of main.
+
+          # Print one frontmatter field (first --- block only) from stdin, unquoted.
+          field() {
+            awk -v key="$1" '
+              NR == 1 && $0 != "---" { exit }
+              NR > 1 && $0 == "---" { exit }
+              index($0, key ":") == 1 {
+                v = substr($0, length(key) + 2)
+                gsub(/^[ \t]+|[ \t\r]+$/, "", v)
+                gsub(/^["'"'"']|["'"'"']$/, "", v)
+                print v
+                exit
+              }'
+          }
+
+          slugs=""
+          while IFS= read -r file; do
+            [[ "$file" =~ ^posts/[^/]+/index\.md$ ]] || continue
+            now_status="$(git show "HEAD:$file" | field status)"
+            [ "$now_status" = "published" ] || continue
+            before_status="$(git show "HEAD~1:$file" 2>/dev/null | field status || true)"
+            [ "$before_status" != "published" ] || continue
+            slug="$(git show "HEAD:$file" | field slug)"
+            if [ -z "$slug" ]; then
+              echo "::error file=$file::Published post has no slug in its frontmatter"
+              exit 1
+            fi
+            echo "Newly published: $slug ($file)"
+            slugs="${slugs:+$slugs }$slug"
+          done < <(git diff --name-only --diff-filter=AM HEAD~1 HEAD)
+
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+          [ -n "$slugs" ] || echo "No newly published posts in this push."
+
+      - name: Trigger rebuild
+        shell: bash
+        env:
+          HOOK: ${{ secrets.CF_PAGES_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          echo "::add-mask::$HOOK"
+          curl -fsS -X POST "$HOOK" > /dev/null
+          echo "Rebuild triggered."
+
+      - name: Wait until live
+        shell: bash
+        env:
+          SLUGS: ${{ steps.find.outputs.slugs }}
+        run: |
+          set -euo pipefail
+          interval="${POLL_INTERVAL:-15}"
+          timeout="${POLL_TIMEOUT:-600}"
+          base="${BASE_URL:-https://sevitz.com/thoughts-about}"
+
+          if [ -z "$SLUGS" ]; then
+            echo "No newly published posts; nothing to wait for."
+            exit 0
+          fi
+
+          for slug in $SLUGS; do
+            url="$base/$slug/"
+            waited=0
+            while true; do
+              code="$(curl -s -o /dev/null -w '%{http_code}' "$url" || true)"
+              if [ "$code" = "200" ]; then
+                echo "Live: $url"
+                break
+              fi
+              if [ "$waited" -ge "$timeout" ]; then
+                echo "::error::$url was not live (HTTP $code) after ${timeout}s. Check the Cloudflare build."
+                exit 1
+              fi
+              echo "Not live yet (HTTP $code), retrying in ${interval}s"
+              sleep "$interval"
+              waited=$((waited + interval))
+            done
+          done
+
+      - name: Summary
+        shell: bash
+        env:
+          SLUGS: ${{ steps.find.outputs.slugs }}
+        run: |
+          set -euo pipefail
+          for slug in $SLUGS; do
+            echo "Live: https://sevitz.com/thoughts-about/$slug/" >> "$GITHUB_STEP_SUMMARY"
+          done
