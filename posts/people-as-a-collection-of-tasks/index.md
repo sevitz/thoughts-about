@@ -2,7 +2,7 @@
 title: "People as a collection of Tasks"
 subtitle: "(or stop trying to make \"hello agent sort my stuff out\" happen)"
 slug: people-as-a-collection-of-tasks
-summary: "People don't think of their lives as a set of tasks, so agents that need them to are a product problem, not a tech one."
+summary: "People don't think of their lives as a set of tasks, so AI agents as they are now don't actually solve a problem."
 date: 2026-09-30
 status: draft
 tags: [ai, product]
