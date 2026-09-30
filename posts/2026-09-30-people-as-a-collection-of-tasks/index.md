@@ -44,3 +44,4 @@ I think, the models will get better faster than the other two points above. The 
 But I do think this is one of those things where “we overestimate the impact in 1 year and underestimate it in 10 years” and productivity workflows is more niche than tech and product people think. 
 
 There also is a cognitive cost to managing workflows and agents. But that's for a later thought.
+
