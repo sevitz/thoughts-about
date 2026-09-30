@@ -7,6 +7,8 @@ date: 2026-09-30
 status: draft
 tags: [ai, product]
 syndicate: []
+wordCount: 422
+readingTimeMinutes: 2
 ---
 
 Came across this post by [Tressie McMillan Cottom](https://bsky.app/profile/tressiemcphd.bsky.social) (and related posts on the topic, [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwll5j6xq22v) and [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwnsiyaybs2k)) on how one of the problems with AI (and well AI Agents in particular).
