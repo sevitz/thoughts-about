@@ -17,51 +17,77 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Two commits so HEAD~1 exists.
-          fetch-depth: 2
+          # Full history so the commit before this push exists, even when the push
+          # brought in several commits (rebase or merge commit).
+          fetch-depth: 0
 
       - name: Find newly published posts
         id: find
         shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
         run: |
           set -euo pipefail
 
-          # PRs are squash merged, so every commit on main has a single parent and
-          # HEAD~1 is the previous state of main.
+          # Compare against the tip of main before this push. Squash merges give
+          # single-parent commits so HEAD~1 would usually do, but a rebase or merge
+          # commit can add several commits at once. Fall back to HEAD~1 when the
+          # before SHA is empty, all zeros or not in the clone.
+          base="${BEFORE_SHA:-}"
+          if [[ ! "$base" =~ ^[0-9a-f]{40}$ ]] || [[ "$base" =~ ^0+$ ]] \
+             || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            base="HEAD~1"
+          fi
+          echo "Comparing $base to HEAD"
 
-          # Print one frontmatter field (first --- block only) from stdin, unquoted.
+          # Print one frontmatter field (first --- block only) from the text in $2,
+          # with CRLF, a trailing ' # comment' and surrounding quotes removed.
           field() {
             awk -v key="$1" '
+              { sub(/\r$/, "") }
               NR == 1 && $0 != "---" { exit }
               NR > 1 && $0 == "---" { exit }
               index($0, key ":") == 1 {
                 v = substr($0, length(key) + 2)
-                gsub(/^[ \t]+|[ \t\r]+$/, "", v)
+                sub(/[ \t]+#.*$/, "", v)
+                gsub(/^[ \t]+|[ \t]+$/, "", v)
                 gsub(/^["'"'"']|["'"'"']$/, "", v)
                 print v
                 exit
-              }'
+              }' <<< "$2"
           }
 
-          slugs=""
+          # Slugs that were already published at the base. Matching on slug rather
+          # than path means a renamed, already-published post is not announced again.
+          before_published=" "
           while IFS= read -r file; do
             [[ "$file" =~ ^posts/[^/]+/index\.md$ ]] || continue
-            now_status="$(git show "HEAD:$file" | field status)"
-            [ "$now_status" = "published" ] || continue
-            before_status="$(git show "HEAD~1:$file" 2>/dev/null | field status || true)"
-            [ "$before_status" != "published" ] || continue
-            slug="$(git show "HEAD:$file" | field slug)"
-            if [ -z "$slug" ]; then
-              echo "::error file=$file::Published post has no slug in its frontmatter"
+            text="$(git show "$base:$file")"
+            [ "$(field status "$text")" = "published" ] || continue
+            before_published="$before_published$(field slug "$text") "
+          done < <(git ls-tree -r --name-only "$base" -- posts)
+
+          slugs=""
+          # --no-renames: a near-identical new post must show as added, not renamed.
+          while IFS= read -r file; do
+            [[ "$file" =~ ^posts/[^/]+/index\.md$ ]] || continue
+            # Read the blob once; piping git show into awk can SIGPIPE on large files.
+            text="$(git show "HEAD:$file")"
+            [ "$(field status "$text")" = "published" ] || continue
+            slug="$(field slug "$text")"
+            if [[ ! "$slug" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+              echo "::error file=$file::Invalid or missing slug '$slug' in frontmatter"
               exit 1
             fi
+            [[ "$before_published" != *" $slug "* ]] || continue
             echo "Newly published: $slug ($file)"
             slugs="${slugs:+$slugs }$slug"
-          done < <(git diff --name-only --diff-filter=AM HEAD~1 HEAD)
+          done < <(git diff --name-only --no-renames --diff-filter=AM "$base" HEAD)
 
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
           [ -n "$slugs" ] || echo "No newly published posts in this push."
@@ -72,6 +98,10 @@ jobs:
           HOOK: ${{ secrets.CF_PAGES_DEPLOY_HOOK_URL }}
         run: |
           set -euo pipefail
+          if [ -z "$HOOK" ]; then
+            echo "::error::CF_PAGES_DEPLOY_HOOK_URL secret is not set"
+            exit 1
+          fi
           echo "::add-mask::$HOOK"
           curl -fsS -X POST "$HOOK" > /dev/null
           echo "Rebuild triggered."
@@ -82,6 +112,7 @@ jobs:
           SLUGS: ${{ steps.find.outputs.slugs }}
         run: |
           set -euo pipefail
+          set -f # slugs are validated, but never let them glob
           interval="${POLL_INTERVAL:-15}"
           timeout="${POLL_TIMEOUT:-600}"
           base="${BASE_URL:-https://sevitz.com/thoughts-about}"
@@ -91,11 +122,11 @@ jobs:
             exit 0
           fi
 
-          for slug in $SLUGS; do
+          for slug in $SLUGS; do # validated slugs, no spaces or globs
             url="$base/$slug/"
             waited=0
             while true; do
-              code="$(curl -s -o /dev/null -w '%{http_code}' "$url" || true)"
+              code="$(curl -s --max-time 20 -o /dev/null -w '%{http_code}' "$url" || true)"
               if [ "$code" = "200" ]; then
                 echo "Live: $url"
                 break
@@ -116,6 +147,7 @@ jobs:
           SLUGS: ${{ steps.find.outputs.slugs }}
         run: |
           set -euo pipefail
+          set -f
           for slug in $SLUGS; do
             echo "Live: https://sevitz.com/thoughts-about/$slug/" >> "$GITHUB_STEP_SUMMARY"
           done
