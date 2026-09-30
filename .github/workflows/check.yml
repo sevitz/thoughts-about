@@ -47,6 +47,7 @@ jobs:
           fi
 
       - name: Check links
+        if: hashFiles('content/posts/*/index.md') != ''
         uses: lycheeverse/lychee-action@v2
         with:
           args: --config playbooks/lychee.toml --no-progress './content/posts/**/*.md'
