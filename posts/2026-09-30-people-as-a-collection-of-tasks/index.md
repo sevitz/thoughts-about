@@ -10,9 +10,13 @@ tags:
   - product
   - agents
   - consumers
+syndication:
+  linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7511329364618305536/
+  bluesky: https://bsky.app/profile/sevitz.com/post/3mwsf7xu3ws2k
+  threads: https://www.threads.com/@sev.itz/post/Dd8cFyriBab
 wordCount: 434
 readingTimeMinutes: 2
-updated: 2026-09-30
+updated: 2026-10-01
 ---
 
 Came across this post by [Tressie McMillan Cottom](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwlkrg7l6c2v) (and related posts on the topic, [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwll5j6xq22v) and [here](https://bsky.app/profile/tressiemcphd.bsky.social/post/3mwnsiyaybs2k)) who highlights that one of the problems with AI (and well AI Agents in particular) is that people don't think of their lives as a set of tasks.
