@@ -8,15 +8,20 @@ status: published
 tags:
   - ai
   - agents
-  - product
-  - consumers
-wordCount: 374
+  - smart-home
+  - cognitive-load
+syndication:
+  linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7513534406821838848/
+  bluesky: https://bsky.app/profile/sevitz.com/post/3mxbo3vvbxs2v
+  threads: https://www.threads.com/@sev.itz/post/DeMEq4TCIBx
+wordCount: 366
 readingTimeMinutes: 2
+updated: 2026-10-07
 ---
 
-At the end of my [last thought](https://sevitz.com/thoughts-about/people-as-a-collection-of-tasks/) I said there's a cognitive cost to managing workflows and agents, but that it was for a later thought. So this is the later thought.
+At the end of my [last post](https://sevitz.com/thoughts-about/people-as-a-collection-of-tasks/) I said there's a cognitive cost to managing workflows and agents. I've noodled on that a bit ...
 
-One of the risks with agents is the same problem we ran into with smart homes (aka IoT).
+One of the risks with agents is the same problem I ran into with smart homes (aka IoT).
 
 You start off getting one light bulb and it's great: you hook it up, it turns on, it turns off. Then you have a few more things: a couple more light bulbs; maybe a robot vacuum cleaner; a couple of switches; some security devices; a couple of cams; and the doorbell.
 
