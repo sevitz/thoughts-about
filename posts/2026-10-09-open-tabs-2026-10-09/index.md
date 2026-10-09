@@ -12,8 +12,8 @@ tags:
   - markdown
 syndication:
   linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7514313924398346241/
-  bluesky: https://bsky.app/profile/did:plc:5s5qcig23tpui4wc5hmcuxbn/post/3mxh33dolwc2x
-  threads: https://www.threads.com/@sev.itz/post/DeRnQ9uiJPt
+  bluesky: https://bsky.app/profile/did:plc:5s5qcig23tpui4wc5hmcuxbn/post/3mxh3pkou2k2x
+  threads: https://www.threads.com/@sev.itz/post/DeRoLMhCAN6
 wordCount: 181
 readingTimeMinutes: 1
 updated: 2026-10-09
