@@ -10,8 +10,9 @@ tags:
   - ai
   - decision-models
   - markdown
-wordCount: 182
+wordCount: 181
 readingTimeMinutes: 1
+updated: 2026-10-09
 ---
 
 ## [Introducing System One Models & Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
@@ -30,4 +31,4 @@ readingTimeMinutes: 1
 
 *Google Docs can now open and edit Markdown files without converting them, and Drive shows rendered previews.*
 
-> Also why I prefer Google Docs to Microsoft. Things just happen quicker and this is a good change as things that are AI+Human readable will beat "word.docx".
+> Why I prefer Google Docs to Microsoft. Things just happen quicker and this is a good change as things that are AI+Human readable will beat "word.docx".
