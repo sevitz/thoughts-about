@@ -12,9 +12,12 @@ tags:
   - parkrun
 wordCount: 358
 readingTimeMinutes: 2
+updated: 2026-10-18
 ---
 
 So I do a fair bit of running. With occasional races. Couple of weeks ago had a half marathon, and went for a PB\*.
+
+![Me in a blue SEV t-shirt mid-race at the half marathon, fist pumping, with other runners around me](2026-10-17-half-marathon-pb.jpg)
 
 I trained for this. Not that long, but I came off a big month in August (410km), and switched to a 5 week training plan. Shout out to [Runna](https://runna.com/).
 
