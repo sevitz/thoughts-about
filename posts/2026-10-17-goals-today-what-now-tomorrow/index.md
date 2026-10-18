@@ -11,7 +11,7 @@ tags:
   - goals
   - parkrun
 syndication:
-  bluesky: https://bsky.app/profile/sevitz.com/post/3my5x5ypqvs2w
+  bluesky: https://bsky.app/profile/sevitz.com/post/3my5yktkjek2w
   threads: https://www.threads.com/@sev.itz/post/DepBfoXCCGv
 wordCount: 358
 readingTimeMinutes: 2
