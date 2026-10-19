@@ -11,11 +11,12 @@ tags:
   - goals
   - parkrun
 syndication:
+  linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7517561719574167552/
   bluesky: https://bsky.app/profile/sevitz.com/post/3my5yktkjek2w
   threads: https://www.threads.com/@sev.itz/post/DepBfoXCCGv
 wordCount: 358
 readingTimeMinutes: 2
-updated: 2026-10-18
+updated: 2026-10-19
 ---
 
 So I do a fair bit of running. With occasional races. Couple of weeks ago had a half marathon, and went for a PB\*.
