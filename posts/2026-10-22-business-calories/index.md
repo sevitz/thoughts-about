@@ -11,8 +11,13 @@ tags:
   - automation
   - toil
   - evolution
+syndication:
+  linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7519318451946037248/
+  bluesky: https://bsky.app/profile/sevitz.com/post/3myk5p22jec2o
+  threads: https://www.threads.com/@sev.itz/post/De1iFXviHVP
 wordCount: 498
 readingTimeMinutes: 2
+updated: 2026-10-23
 ---
 
 One of these is an African waterbuck and one of these is an English deer.
