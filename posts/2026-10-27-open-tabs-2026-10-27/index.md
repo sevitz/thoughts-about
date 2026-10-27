@@ -10,6 +10,8 @@ tags:
   - ai
   - workflows
   - linkedin
+syndication:
+  bluesky: https://bsky.app/profile/sevitz.com/post/3myutc4667k26
 wordCount: 416
 readingTimeMinutes: 2
 updated: 2026-10-27
