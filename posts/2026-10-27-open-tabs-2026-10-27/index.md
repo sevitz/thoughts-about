@@ -10,8 +10,9 @@ tags:
   - ai
   - workflows
   - linkedin
-wordCount: 400
+wordCount: 416
 readingTimeMinutes: 2
+updated: 2026-10-27
 ---
 
 ## [You Must Draw Your AI Workflow to Control It](https://www.chrismdp.com/awml/)
@@ -24,11 +25,11 @@ readingTimeMinutes: 2
 
 *BeijingPalmer had AI organise and merge some PDFs in ten minutes, and the replies insisted they should have learnt to code it themselves instead.*
 
-> Like I posted the other day. The cost of getting little problems solved is dropping to next to zero. There is a lot of toil that can be flattened. For all of the anti-AI this is real utility. The [sub-thread](https://bsky.app/profile/fubarchitect.com/post/3mynjc5x2ds2v) is worth reading too. You've got a £10k pm dev at your fingertips. Why wouldn't you get rid of toil.
+> Like I [posted the other day](https://sevitz.com/thoughts-about/business-calories/). The cost of getting little problems solved is dropping to next to zero. There is a lot of toil that can be flattened. For all of the anti-AI this is real utility. The [sub-thread](https://bsky.app/profile/fubarchitect.com/post/3mynjc5x2ds2v) is worth reading too. You've got a £10k pm dev at your fingertips. Why wouldn't you get rid of toil.
 
 ## [Introducing TinyLittleOffice.com](https://aboard.com/introducing-tinylittleoffice-com/)
 
-*Paul Ford/Aboard has created a tiny office suite where the whole document lives in the link, so nothing is saved to a server and there's no logging in.*
+*Paul Ford and Aboard has created a tiny office suite where the whole document lives in the link, so nothing is saved to a server and there's no logging in.*
 
 > Cute. Clever. The entire document is encoded in the link, in the non-saveable bit of the URL. Not entirely sure of its utility but it's clever.
 
@@ -36,7 +37,7 @@ readingTimeMinutes: 2
 
 *A set of lessons from four years of building \[AI\] products at PostHog.*
 
-> Hadn't heard of PostHog. Came across this last week. It's a good list of things to noodle. Then saw them at [SEV0](https://www.sev0.com/?location=ldn#agenda) London. Good talk by [Ben White](https://www.linkedin.com/in/benjackwhite/). Although their sales pitch at the stand didn't explain the product to me. It does everything is not a good pitch.
+> Hadn't heard of PostHog. Came across this last week. It's a good list of things to noodle. Then saw them at [SEV0](https://www.sev0.com/?location=ldn#agenda) London (👋🏼 [incident.io](https://incident.io/)). Good talk by [Ben White](https://www.linkedin.com/in/benjackwhite/) (look out for the SEV0 video when posted). Although felt their sales pitch at the stand didn't explain the product to me. It does everything wasn't a good pitch. Ben's talk was a good pitch.
 
 ## [Even LinkedIn is getting tired of your AI-written posts](https://edition.cnn.com/2026/10/18/tech/linkedin-fighting-ai-posts)
 
